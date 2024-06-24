@@ -1,5 +1,4 @@
 import {LuSearch} from "react-icons/lu";
-import {books} from "@/data/data";
 import Image from "next/image";
 import type {Categories} from "@/lib/types";
 import {BookDetails} from "@/components/BookDetails";
