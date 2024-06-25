@@ -1,7 +1,8 @@
 import type { Book } from "@/lib/types";
+import Link from "next/link";
 export function Card( book  : Book) {
     return (
-        <div className="card card-compact w-full bg-base-100 border">
+        <Link href={`/books/${book.id}`} className="card card-compact w-full bg-base-100 border">
             <figure>
                 <img src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" />
             </figure>
@@ -14,6 +15,6 @@ export function Card( book  : Book) {
                     ))}
                 </div>
             </div>
-        </div>
+        </Link>
     );
 }
