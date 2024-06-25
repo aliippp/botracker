@@ -1,8 +1,11 @@
-export type Categories = string[];
+export type Genres = {
+    id: string,
+    name: string
+}
 
 export type Book = {
-    id: number,
+    id: string,
     title: string,
     author: string,
-    genres: { id: string, name: string }[]
+    genres: Genres[]
 }

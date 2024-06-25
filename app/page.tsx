@@ -1,13 +1,14 @@
 import {LuSearch} from "react-icons/lu";
 import Image from "next/image";
-import type {Book, Categories} from "@/lib/types";
+import type {Book, Genres} from "@/lib/types";
 import {BookDetails} from "@/components/BookDetails";
-import {getBooks} from "@/lib/actions/getBooks";
+import {getAllBooks} from "@/lib/actions/getAllBooks";
+import {getAllGenres} from "@/lib/actions/getAllGenres";
 
-const categories: Categories = ["Non Fiction", "Fiction", "Science"];
 
 export default async function Home() {
-    const books : Book[] = await getBooks()
+    const books : Book[] = await getAllBooks()
+    const genres : Genres[] = await getAllGenres()
     return (
       <main className="flex container mx-auto h-screen">
           <div className="flex-1 flex flex-col overflow-visible">
@@ -20,11 +21,11 @@ export default async function Home() {
               </div>
               <div className="w-full flex justify-end my-4">
                   <select className="select select-bordered w-full max-w-xs">
-                      <option selected>
+                      <option defaultValue="All Category">
                           All Category
                       </option>
-                      {categories.map((category, index) => (
-                          <option key={index}>{category}</option>
+                      {genres.map((genre, index) => (
+                          <option key={index}>{genre.name}</option>
                       ))}
                   </select>
               </div>
