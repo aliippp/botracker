@@ -23,7 +23,7 @@ model Book {
   id          String   @id @default(cuid())
   title       String
   author      String
-  genre       Genre[]
+  genres      Genre[]
 
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

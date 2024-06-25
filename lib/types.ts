@@ -4,5 +4,5 @@ export type Book = {
     id: number,
     title: string,
     author: string,
-    genres: Categories,
+    genres: { id: string, name: string }[]
 }

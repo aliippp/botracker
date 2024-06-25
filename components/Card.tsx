@@ -9,8 +9,8 @@ export function Card( book  : Book) {
                 <h2 className="card-title">{book.title}</h2>
                 <p>{book.author}</p>
                 <div className="card-actions justify-end">
-                    {book.genres.map((genre, index) => (
-                        <div key={index} className="badge badge-outline">{genre}</div>
+                    {book.genres?.map((genre, index) => (
+                        <div key={index} className="badge badge-outline">{genre.name}</div>
                     ))}
                 </div>
             </div>

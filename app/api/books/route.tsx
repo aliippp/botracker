@@ -7,7 +7,7 @@ const prisma  = new PrismaClient();
 export async function GET() {
     const books = await prisma.book.findMany({
         include: {
-            genre: true
+            genres: true
         }
     })
     return NextResponse.json(books)

@@ -1,12 +1,14 @@
 import {LuSearch} from "react-icons/lu";
 import Image from "next/image";
-import type {Categories} from "@/lib/types";
+import type {Book, Categories} from "@/lib/types";
 import {BookDetails} from "@/components/BookDetails";
+import {getBooks} from "@/lib/actions/getBooks";
 
 const categories: Categories = ["Non Fiction", "Fiction", "Science"];
 
-export default function Home() {
-  return (
+export default async function Home() {
+    const books : Book[] = await getBooks()
+    return (
       <main className="flex container mx-auto h-screen">
           <div className="flex-1 flex flex-col overflow-visible">
               <h1 className="my-4 font-regular text-xl">Home</h1>
@@ -27,11 +29,10 @@ export default function Home() {
                   </select>
               </div>
               <div className="flex-1 overflow-y-auto grid grid-cols-1 gap-2 py-4">
-                  <BookDetails/>
-                  <BookDetails/>
-                  <BookDetails/>
-                  <BookDetails/>
-                  <BookDetails/>
+                  {books.map((book, index) => (
+                        <BookDetails key={index} title={book.title} author={book.author}/>
+                  ))}
+
               </div>
           </div>
           <div className="divider divider-horizontal hidden lg:flex"></div>
