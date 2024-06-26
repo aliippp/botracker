@@ -7,10 +7,14 @@ import type {Book, Genres} from "@/lib/types";
 import {getAllBooks} from "@/lib/actions/getAllBooks";
 import {getAllGenres} from "@/lib/actions/getAllGenres";
 
+type ThenArg<T> = T extends PromiseLike<infer U> ? U : T
+type BooksWithGenres = ThenArg<ReturnType<typeof getAllBooks>>
+type GenresWithBooks = ThenArg<ReturnType<typeof getAllGenres>>
+
 
 export default async function Books() {
-    const books : Book[] = await getAllBooks()
-    const genres : Genres[] = await getAllGenres()
+    const books : BooksWithGenres = await getAllBooks()
+    const genres : GenresWithBooks = await getAllGenres()
     return (
         <main className="flex container mx-auto h-screen">
             <div className="flex-1 flex flex-col overflow-visible">
@@ -26,7 +30,7 @@ export default async function Books() {
                         <option defaultValue="All Category">
                             All Category
                         </option>
-                        {genres.map((genre, index) => (
+                        {genres.map((genre: Genres, index: number) => (
                             <option key={index}>{genre.name}</option>
                         ))}
                     </select>

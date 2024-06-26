@@ -1,9 +1,26 @@
 "use client"
 import {LuArrowLeft} from "react-icons/lu";
 import {useRouter} from "next/navigation";
+import {useEffect, useState} from "react";
+
+import {Genres} from "@/lib/types";
+
+type Book = {
+    id: string,
+    title: string,
+    author: string,
+    genres: Genres[]
+}
 
 export default function Page({params} : {params: {id: string}}) {
     const router = useRouter()
+    const [book, setBook] = useState<Book>()
+    useEffect(() => {
+        fetch('http://localhost:3000/api/books/' + params.id)
+            .then(response => response.json())
+            .then(data => setBook(data))
+    }, [params.id]);
+
     return (
         <div className="container mx-auto">
             <div className="mt-5">
@@ -23,24 +40,18 @@ export default function Page({params} : {params: {id: string}}) {
                     <div className="py-4">
                         <div className="my-2">
                             <p className="my-1">Title: </p>
-                            <p>Book Title</p>
+                            <p>{book?.title}</p>
                         </div>
                         <div className="my-2">
                             <p className="my-2">Author: </p>
-                            <p>Book Author</p>
+                            <p>{book?.author}</p>
                         </div>
                         <div className="my-2">
                             <p>Genres: </p>
                             <div className="my-2 grid grid-cols-8 gap-1">
-                                <div className="badge badge-outline">Genre 1</div>
-                                <div className="badge badge-outline">Genre 2</div>
-                                <div className="badge badge-outline">Genre 2</div>
-                                <div className="badge badge-outline">Genre 2</div>
-                                <div className="badge badge-outline">Genre 2</div>
-                                <div className="badge badge-outline">Genre 2</div>
-                                <div className="badge badge-outline">Genre 2</div>
-                                <div className="badge badge-outline">Genre 2</div>
-                                <div className="badge badge-outline">Genre 2</div>
+                                {book?.genres?.map((genre, index) => (
+                                    <div key={index} className="badge badge-outline">{genre.name}</div>
+                                ))}
                             </div>
                         </div>
                         <div className="my-4 grid grid-cols-2 gap-2">
